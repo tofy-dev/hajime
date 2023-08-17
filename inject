@@ -1,0 +1,2 @@
+pid=$(pidof hl2_linux)
+injector -p $pid ../bin/hajime.so
