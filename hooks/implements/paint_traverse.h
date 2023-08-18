@@ -2,6 +2,7 @@
 #include "interfaces/interfaces.h"
 #include "source-sdk/i_entity.h"
 #include "utils/netvars/netvars.h"
+#include "features/esp/glow.h"
 
 typedef void (*PaintTraverseFn) (void*, unsigned int, bool, bool);
 inline void hooked_paint_traverse(void* thisptr, unsigned int vgui_panel, bool force_repaint, bool allow_force) {
@@ -21,6 +22,6 @@ inline void hooked_paint_traverse(void* thisptr, unsigned int vgui_panel, bool f
 	if(!localPlayer) return;
 
     *(int*)((uint32_t)localPlayer+netvars::get_offset("m_nForceTauntCam")) = 1;
-
+    glow::glow();
   }
 }

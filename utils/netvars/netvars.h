@@ -4,6 +4,7 @@
 
 namespace netvars {
   void init();
+  void init_offsets();
 
   // Parsing netvars
   int get_netvar(const char* dt, const char* m);

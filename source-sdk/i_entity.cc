@@ -2,40 +2,18 @@
 
 #include <cstdint>
 #include "i_entity.h"
+#include "utils/netvars/netvars.h"
+
 class vector {};
 
 bool c_base_entity::get_life_state() {
-
-}
-
-bool c_base_entity::is_alive() {
-
-}
-
-bool c_base_entity::is_player() {
-
+  return *(bool*)netvars::get_offset("m_lifeState");
 }
 
 int c_base_entity::get_health() {
-
-}
-
-vector c_base_entity::get_origin() {
-
+  return *(int*)netvars::get_offset("m_iHealth");
 }
 
 int c_base_entity::get_team() {
-
-}
-
-bool& c_base_entity::glow_enabled() {
-
-}
-
-void c_base_entity::update_glow_effect() {
-
-}
-
-void c_base_entity::destroy_glow_effect() {
-
+  return *(int*)netvars::get_offset("m_iTeamNum");
 }

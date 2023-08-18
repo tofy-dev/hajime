@@ -32,6 +32,15 @@ void netvars::init() {
 	}
 }
 
+void netvars::init_offsets() {
+  netvars::get_netvar("DT_BasePlayer", "m_iHealth");
+  netvars::get_netvar("DT_BasePlayer", "m_lifeState");
+  netvars::get_netvar("DT_BaseEntity", "m_iTeamNum");
+
+  netvars::get_netvar("DT_TFPlayer", "m_nForceTauntCam");
+  netvars::get_netvar("DT_TFPlayer", "m_bGlowEnabled");
+}
+
 int netvars::get_netvar(const char* dt, const char* m) {
 	for (int i = 0; i < sizeof(recvTables)/sizeof(*recvTables); i++)
 	{
