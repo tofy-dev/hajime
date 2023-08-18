@@ -1,4 +1,4 @@
-INCLUDE+=-I. -Iutils -Isource-sdk -Iinterfaces -Ihooks
+INCLUDE+=-I. -Iutils -Isource-sdk -Iinterfaces -Ihooks -Ifeatures
 
 CXX_FLAGS+=-O3
 CXX_FLAGS+=-pipe
@@ -11,59 +11,22 @@ LDLIBS+=-lstdc++
 LDLIBS+=-ldl
 LDLIBS+=-shared
 
+name := hajime
+dest := ../bin
+source := $(shell find -name "*.cc" | cut -b 3-)
+objects := $(addprefix $(dest)/, $(patsubst %.cc, %.o, $(source)))
 
-OUT:=hjm
-SDK:=$(basename $(wildcard source-sdk/*.cc))
-INT:=$(basename $(wildcard interfaces/*.cc))
-UTL:=$(basename $(wildcard utils/netvars/*.cc))
-HOO:=$(basename $(wildcard hooks/*.cc))
+# Default target
+all: $(dest)/$(name).so
 
-SDK_objs:=$(addprefix ../bin/, $(addsuffix .o, $(SDK)))
-INT_objs:=$(addprefix ../bin/, $(addsuffix .o, $(INT)))
-UTL_objs:=$(addprefix ../bin/, $(addsuffix .o, $(UTL)))
-HOO_objs:=$(addprefix ../bin/, $(addsuffix .o, $(HOO)))
-OBJS:=$(SDK_objs) $(INT_objs) $(UTL_objs) $(HOO_objs)
+# Rule to build the final executable/library
+$(dest)/$(name).so: $(objects)
+	g++ $(CXX_FLAGS) $(objects) $(LDLIBS) -o $@
 
-
-.PHONY: init all
-
-# resetting
-all: $(init) $(OUT)
-
-$(OUT): $(OBJS)
-	g++ $(CXX_FLAGS) $(OBJS) $(INCLUDE) main.cc \
-		$(LDLIBS) -o ../bin/hajime.so
-	# g++ $(SDK_objs) -m32 --std=c++20 -O3 -pipe -o ../bin/hajime.elf
-
-../bin/source-sdk/%.o: source-sdk/%.cc
+# Pattern rule to build object files
+$(dest)/%.o: %.cc
+	mkdir -p $(dir $@)
 	g++ $(CXX_FLAGS) $(INCLUDE) -o $@ -c $<
 
-../bin/interfaces/%.o: interfaces/%.cc
-	g++ $(CXX_FLAGS) $(INCLUDE) -o $@ -c $<
-
-../bin/utils/netvars/%.o: utils/netvars/%.cc
-	g++ $(CXX_FLAGS) $(INCLUDE) -o $@ -c $<
-
-../bin/utils/math/%.o: utils/math/%.cc
-	g++ $(CXX_FLAGS) $(INCLUDE) -o $@ -c $<
-
-../bin/hooks/%.o: hooks/%.cc
-	g++ $(CXX_FLAGS) $(INCLUDE) -o $@ -c $<
-
-
-# create dirs
-init:
-	mkdir ../bin/source-sdk/
-	mkdir ../bin/interfaces/
-	mkdir ../bin/utils/
-	mkdir ../bin/utils/netvars/
-	mkdir ../bin/utils/math/
-	mkdir ../bin/hooks/
-
-
-# soft resetting
 clean:
-	find ../bin -name '*.*' -delete
-# hard resetting
-CLEAN:
-	rm -rf ../bin/*
+	rm -rf $(dest)/*
