@@ -1,4 +1,4 @@
-INCLUDE+=-I. -Iutils -Isource-sdk -Iinterfaces
+INCLUDE+=-I. -Iutils -Isource-sdk -Iinterfaces -Ihooks
 
 CXX_FLAGS+=-O3
 CXX_FLAGS+=-pipe
@@ -11,15 +11,18 @@ LDLIBS+=-lstdc++
 LDLIBS+=-ldl
 LDLIBS+=-shared
 
+
 OUT:=hjm
 SDK:=$(basename $(wildcard source-sdk/*.cc))
 INT:=$(basename $(wildcard interfaces/*.cc))
 UTL:=$(basename $(wildcard utils/netvars/*.cc))
+HOO:=$(basename $(wildcard hooks/*.cc))
 
 SDK_objs:=$(addprefix ../bin/, $(addsuffix .o, $(SDK)))
 INT_objs:=$(addprefix ../bin/, $(addsuffix .o, $(INT)))
 UTL_objs:=$(addprefix ../bin/, $(addsuffix .o, $(UTL)))
-OBJS:=$(SDK_objs) $(INT_objs) $(UTL_objs)
+HOO_objs:=$(addprefix ../bin/, $(addsuffix .o, $(HOO)))
+OBJS:=$(SDK_objs) $(INT_objs) $(UTL_objs) $(HOO_objs)
 
 
 .PHONY: init all
@@ -41,6 +44,12 @@ $(OUT): $(OBJS)
 ../bin/utils/netvars/%.o: utils/netvars/%.cc
 	g++ $(CXX_FLAGS) $(INCLUDE) -o $@ -c $<
 
+../bin/utils/math/%.o: utils/math/%.cc
+	g++ $(CXX_FLAGS) $(INCLUDE) -o $@ -c $<
+
+../bin/hooks/%.o: hooks/%.cc
+	g++ $(CXX_FLAGS) $(INCLUDE) -o $@ -c $<
+
 
 # create dirs
 init:
@@ -48,6 +57,8 @@ init:
 	mkdir ../bin/interfaces/
 	mkdir ../bin/utils/
 	mkdir ../bin/utils/netvars/
+	mkdir ../bin/utils/math/
+	mkdir ../bin/hooks/
 
 
 # soft resetting

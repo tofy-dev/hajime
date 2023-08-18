@@ -1,6 +1,7 @@
 #include "netvars.h"
 #include "dt_recv.h"
 #include "interfaces/interfaces.h"
+#include "utils/logger.h"
 
 #include <cstdint>
 #include <map>
@@ -72,8 +73,9 @@ void netvars::dump_netvars() {
 }
 
 void netvars::print_offsets() {
+  using logger::ofs;
   for (const auto& kvp : offsets_) {
-    // *Debug::ofs << "Key: " << kvp.first << ", Value: " << kvp.second << std::endl;
+    *ofs << "Key: " << kvp.first << ", Value: " << kvp.second << std::endl;
   }
 }
 
