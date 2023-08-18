@@ -3,7 +3,6 @@
 
 #include "utils/timeutil.h"
 #include "utils/netvars/netvars.h"
-#include "utils/memory/memory.h"
 #include "utils/logger.h"
 
 #include <fstream>
@@ -16,10 +15,6 @@ int __attribute__((constructor)) main() {
   *ofs << "Initing InterfaceMgr..." << std::endl;
   interfaces::init();
 
-  // memory::print_base_address(interfaces::client);
-  *ofs << "client " << interfaces::client;
-  
-  
   // *ofs << "Initing NetvarMgr..." << std::endl;
   // netvars::init();
 

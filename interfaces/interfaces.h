@@ -5,9 +5,15 @@
 #include "source-sdk/i_entity_list.h"
 #include "source-sdk/i_surface.h"
 
+#include <string>
+
 namespace interfaces {
   void init();
 
+  extern int engine_addr;
+  extern int client_addr;
+  extern int vgui_addr;
+  extern int matsurface_addr;
 
   extern iv_engine_client *engine;
   extern iv_panel *panel;

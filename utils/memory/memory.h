@@ -1,3 +1,5 @@
+#include <string>
+
 namespace memory {
-void print_base_address(void* handle);
+unsigned long get_base_address(int pid, std::string moduleName);
 }
