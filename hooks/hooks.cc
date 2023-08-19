@@ -1,6 +1,6 @@
 #include "hooks.h"
 #include "altvmt.h"
-#include "implements/paint_traverse.h"
+#include "implements/implementations.h"
 #include "interfaces/interfaces.h"
 #include "utils/logger.h"
 
@@ -24,7 +24,7 @@ void hooks::init() {
   *ofs << entitylist_vmt << " size " << entitylist_vmt->size << std::endl;
 
   *ofs << "Creating hooks..." << std::endl;
-  hooks::create_hook(hooks::panel_vmt, 42, (void*)&hooked_paint_traverse);
+  hooks::create_hook(hooks::panel_vmt, 42, (void*)&implementations::hooked_paint_traverse);
 }
 
 void hooks::create_hook(altvmt *vmt, int index, void* func) {

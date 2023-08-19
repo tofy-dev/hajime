@@ -9,8 +9,8 @@ public:
   }
 
   int get_highest_entity_index() {
-    typedef int(*fn)(void);
-    return utils::get_virtual_function<fn>(this, 6)();
+    typedef int(*fn)(void*);
+    return utils::get_virtual_function<fn>(this, 6)(this);
   }
 
   int get_max_entities() {

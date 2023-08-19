@@ -6,14 +6,15 @@
 #include "source-sdk/i_surface.h"
 
 #include <string>
+#include <cstdint>
 
 namespace interfaces {
   void init();
 
-  extern int engine_addr;
-  extern int client_addr;
-  extern int vgui_addr;
-  extern int matsurface_addr;
+  extern uint32_t engine_addr;
+  extern uint32_t client_addr;
+  extern uint32_t vgui_addr;
+  extern uint32_t matsurface_addr;
 
   extern iv_engine_client *engine;
   extern iv_panel *panel;
