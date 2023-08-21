@@ -15,7 +15,10 @@ void glow::glow() {
   CGlowObjectManager* glowobjectmanager = reinterpret_cast<CGlowObjectManager*> (interfaces::client_addr + 0x204f340);
   *ofs << "gom ptr: " << glowobjectmanager << std::endl;
 
+  *ofs << "Looping through entities..." << std::endl;
+  *ofs << "[debug] max index: " << interfaces::entitylist->get_highest_entity_index() << std::endl;
   *ofs << "Glowing entities..." << std::endl;
+
   for (int index = 0; index < glowobjectmanager->m_GlowObjectDefinitions.m_Size; index++) {
     *ofs << "gom looping " << index << std::endl;
     GlowObjectDefinition_t& glowobject = glowobjectmanager->m_GlowObjectDefinitions[index];
@@ -23,29 +26,31 @@ void glow::glow() {
     if (glowobject.m_nNextFreeSlot != ENTRY_IN_USE)
         continue;
 
-    glowobject.m_vGlowColor = Vector(0.f, 1.f, 0.f);
+    glowobject.m_vGlowColor = Vector(1.f, 0.f, 1.f);
   }
 
-  *ofs << "Looping through entities..." << std::endl;
-  *ofs << "[debug] max index: " << interfaces::entitylist->get_highest_entity_index() << std::endl;
-  // *ofs << interfaces::entitylist->get_highest_entity_index() << std::endl;
+  for (int index = 1; index < interfaces::entitylist->get_highest_entity_index(); index++) {
+    *ofs << "loop" << index << std::endl;
+    c_base_entity* entity = static_cast<c_base_entity*>(interfaces::entitylist->get_client_entity(index));
 
-  // for (int index = 1; index < interfaces::entitylist->get_highest_entity_index(); index++) {
-    // *ofs << "loop" << index << std::endl;
-    // c_base_entity* entity = static_cast<c_base_entity*>(interfaces::entitylist->get_client_entity(index));
+    if(!entity)
+      continue;
+    *ofs << "entity " << entity << std::endl;
 
-	// if(!entity)
-	//   continue;
+    *ofs << "dormant " << entity->is_dormant() << std::endl;
+    if(entity->is_dormant())
+      continue;
 
-	// if(entity->get_health() < 1)
-	//   continue;
+    *ofs << "life state " << entity->get_life_state() << std::endl;
+    if(entity->get_life_state() != 0)
+      continue;
 
-	// if(entity->get_life_state() != 0)
-	//   continue;
+    *ofs << "health " << entity->get_health() << std::endl;
+    if(entity->get_health() < 1)
+      continue;
 
-    // *ofs << "Set glow = true..." << std::endl;
-    // *(int*)((uint32_t)entity+netvars::get_offset("m_bGlowEnabled")) = 1;
-    // *ofs << "Update glow effect..." << std::endl;
-    // entity->update_glow_effect();
-  // }
+    *ofs << "Set glow = true..." << std::endl;
+    *ofs << "Update glow effect..." << std::endl;
+    entity->update_glow_effect();
+  }
 }

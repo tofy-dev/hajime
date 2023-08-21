@@ -14,4 +14,8 @@ public:
     int get_health();
 
     int get_team();
+
+    void update_glow_effect();
+
+    bool is_dormant();
 };
