@@ -31,7 +31,7 @@ void glow::glow() {
 
   for (int index = 1; index < interfaces::entitylist->get_highest_entity_index(); index++) {
     *ofs << "loop" << index << std::endl;
-    c_base_entity* entity = static_cast<c_base_entity*>(interfaces::entitylist->get_client_entity(index));
+    c_base_entity* entity = interfaces::entitylist->get_client_entity(index);
 
     if(!entity)
       continue;

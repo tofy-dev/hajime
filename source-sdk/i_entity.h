@@ -1,11 +1,5 @@
 #pragma once
-
-#include <cstdint>
-class c_base_combat_weapon;
-class client_class;
-class vector;
-struct model_t;
-typedef float matrix3x4[3][4];
+#include "c_base_combat_weapon.h"
 
 class c_base_entity {
 public:
@@ -14,6 +8,8 @@ public:
     int get_health();
 
     int get_team();
+
+    c_base_combat_weapon* get_weapon();
 
     void update_glow_effect();
 
