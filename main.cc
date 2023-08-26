@@ -25,8 +25,6 @@ int __attribute__((constructor)) main() {
 
   *ofs << "Initing hooks..." << std::endl;
   hooks::init();
-
-  *ofs << "elist size " << hooks::entitylist_vmt->size << std::endl;
 }
 
 namespace logger {

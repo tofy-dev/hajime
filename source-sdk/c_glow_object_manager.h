@@ -1,7 +1,6 @@
 #pragma once
+#include "c_base_handle.h"
 #include "math/vector.h"
-
-class CBaseHandle {};
 
 template <class T, class I = int> class CUtlMemory {
     public:
@@ -30,7 +29,7 @@ template <class T, class A = CUtlMemory<T>> class CUtlVector {
 #define END_OF_FREE_LIST -1
 #define ENTRY_IN_USE -2
 struct GlowObjectDefinition_t {
-    CBaseHandle m_hEntity;
+    c_base_handle m_hEntity;
     Vector m_vGlowColor;
     float m_flGlowAlpha;
     bool m_bRenderWhenOccluded;

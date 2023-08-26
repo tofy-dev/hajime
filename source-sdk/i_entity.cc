@@ -5,6 +5,7 @@
 #include "interfaces/interfaces.h"
 #include "utils/utils.h"
 #include "utils/netvars/netvars.h"
+#include "utils/logger.h"
 
 bool c_base_entity::get_life_state() {
   return *(bool*)(this+netvars::get_offset("m_lifeState"));
@@ -19,8 +20,11 @@ int c_base_entity::get_team() {
 }
 
 c_base_combat_weapon* c_base_entity::get_weapon() {
+  *logger::ofs << "Getting weapon..." << std::endl;
   auto wep_handle = *reinterpret_cast< uintptr_t* >(this+netvars::get_offset("m_hActiveWeapon"));
+  *logger::ofs << "Getting client entity from handle..." << std::endl;
   auto weapon = reinterpret_cast< c_base_combat_weapon* >(interfaces::entitylist->get_client_entity_from_handle(wep_handle));
+  *logger::ofs << "Returning weapon" << std::endl;
   return weapon;
 }
 
