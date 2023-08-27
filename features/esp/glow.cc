@@ -12,12 +12,12 @@ void glow::glow() {
   *ofs << "caddr: " << interfaces::client_addr << std::endl;
   *ofs << "caddr: " << interfaces::client_addr+0x204f340 << std::endl;
 
-  CGlowObjectManager* glowobjectmanager = reinterpret_cast<CGlowObjectManager*> (interfaces::client_addr + 0x204f340);
-  *ofs << "gom ptr: " << glowobjectmanager << std::endl;
+  // CGlowObjectManager* glowobjectmanager = reinterpret_cast<CGlowObjectManager*> (interfaces::client_addr + 0x204f340);
+  // *ofs << "gom ptr: " << glowobjectmanager << std::endl;
 
-  *ofs << "Looping through entities..." << std::endl;
-  *ofs << "[debug] max index: " << interfaces::entitylist->get_highest_entity_index() << std::endl;
-  *ofs << "Glowing entities..." << std::endl;
+  // *ofs << "Looping through entities..." << std::endl;
+  // *ofs << "[debug] max index: " << interfaces::entitylist->get_highest_entity_index() << std::endl;
+  // *ofs << "Glowing entities..." << std::endl;
 
   // for (int index = 0; index < glowobjectmanager->m_GlowObjectDefinitions.m_Size; index++) {
   //   *ofs << "gom looping " << index << std::endl;

@@ -11,17 +11,8 @@ void hooks::init() {
   using logger::ofs;
 
   *ofs << "Creating vmts..." << std::endl;
-  client_vmt = new altvmt(interfaces::client);
-  engine_vmt = new altvmt(interfaces::engine);
   panel_vmt = new altvmt(interfaces::panel);
-  surface_vmt = new altvmt(interfaces::surface);
-  entitylist_vmt = new altvmt(interfaces::entitylist);
-
-  *ofs << client_vmt << " size " << client_vmt->size << std::endl;
-  *ofs << engine_vmt << " size " << engine_vmt->size << std::endl;
-  *ofs << panel_vmt << " size " << panel_vmt->size << std::endl;
-  *ofs << surface_vmt << " size " << surface_vmt->size << std::endl;
-  *ofs << entitylist_vmt << " size " << entitylist_vmt->size << std::endl;
+  clientmode_vmt = new altvmt((void*)(interfaces::client_addr+0x2061f60));
 
   *ofs << "Creating hooks..." << std::endl;
   hooks::create_hook(hooks::panel_vmt, 42, (void*)&implementations::hooked_paint_traverse);
@@ -36,9 +27,6 @@ void hooks::create_hook(altvmt *vmt, int index, void* func) {
 }
 
 namespace hooks {
-  altvmt *client_vmt = nullptr;
-  altvmt *engine_vmt = nullptr;
   altvmt *panel_vmt = nullptr;
-  altvmt *surface_vmt = nullptr;
-  altvmt *entitylist_vmt = nullptr;
+  altvmt *clientmode_vmt = nullptr;
 }

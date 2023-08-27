@@ -7,6 +7,10 @@ public:
 	typedef void(*fn)(void*, int&, int&);
     utils::get_virtual_function<fn>(this, 5)(this, width, height);
   }
+  void client_cmd(const char* string) {
+	typedef void(*fn)(void*, const char*);
+    utils::get_virtual_function<fn>(this, 7)(this, string);
+  }
   int get_local_player() {
 	typedef int(*fn)(void*);
     return utils::get_virtual_function<fn>(this, 12)(this);
