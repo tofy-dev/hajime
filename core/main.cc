@@ -7,8 +7,6 @@
 #include "utils/logger.h"
 #include "utils/memory/FindPattern.h"
 
-#include "hooks/altvmt.h"
-
 #include <cstdint>
 #include <fstream>
 #include <csignal>
@@ -46,7 +44,9 @@ static void __attribute__((constructor)) constructor() {
   *ofs << std::hex << FindPattern("tf/bin/client.so", "\xC7\x04\x24\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x83\xC4\x10\x89\xD8\x5B\x5E\x5D\xC3\x8D\xB6\x00\x00\x00\x00", "xxx????x????xxxxxxxxxxxxxxx") << std::endl;
 
   *ofs << "pattern: " << std::endl;
-  *ofs << std::hex << 0x2061f60 << std::endl; *ofs << std::hex << FindPattern("tf/bin/client.so", "\x89\x45\x08\x89\x4D\x0C\x5D\x8B\x42\x2C", "xxxxxxxxxx"); *ofs << std::hex << *reinterpret_cast<void**>(FindPattern("tf/bin/client.so", "\x89\x45\x08\x89\x4D\x0C\x5D\x8B\x42\x2C", "xxxxxxxxxx")) << std::endl;
+  *ofs << std::hex << 0x2061f60 << std::endl;
+  *ofs << std::hex << FindPattern("tf/bin/client.so", "\x89\x45\x08\x89\x4D\x0C\x5D\x8B\x42\x2C", "xxxxxxxxxx") << std::endl; 
+  *ofs << std::hex << *reinterpret_cast<void**>(FindPattern("tf/bin/client.so", "\x89\x45\x08\x89\x4D\x0C\x5D\x8B\x42\x2C", "xxxxxxxxxx")) << std::endl;
 
   // altvmt* clientmode_vmt = new altvmt(*reinterpret_cast<void**>(FindPattern("tf/bin/client.so", "\x89\x45\x08\x89\x4D\x0C\x5D\x8B\x42\x2C", "xxxxxxxxxx")));
   // *ofs << "size: " << clientmode_vmt->size << std::endl;

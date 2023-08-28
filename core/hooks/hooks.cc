@@ -1,5 +1,5 @@
 #include "hooks.h"
-#include "altvmt.h"
+#include "vmt_hook.h"
 #include "implements/implementations.h"
 #include "interfaces/interfaces.h"
 #include "utils/logger.h"
@@ -11,11 +11,11 @@
 using logger::ofs;
 void hooks::init() {
   *ofs << "Creating vmts..." << std::endl;
-  panel_vmt = new altvmt(interfaces::panel);
-  client_vmt = new altvmt(interfaces::client);
+  panel_vmt = new vmt_hook(interfaces::panel);
+  client_vmt = new vmt_hook(interfaces::client);
 
   *ofs << "Creating hooks..." << std::endl;
-  hooks::create_hook(hooks::panel_vmt, 42, (void*)&implementations::hooked_paint_traverse);
+  panel_vmt->hook_function((void*)&implementations::hooked_paint_traverse, 42);
 }
 
 void hooks::reset() {
@@ -26,14 +26,8 @@ void hooks::reset() {
   delete client_vmt;
 }
 
-void hooks::create_hook(altvmt *vmt, int index, void* func) {
-  *ofs << "hooking function at index " << index << "..." << std::endl;
-  vmt->fake[index] = func;
-  *ofs << "hook successful." << std::endl;
-}
-
 namespace hooks {
-  altvmt *panel_vmt = nullptr;
-  altvmt *client_vmt = nullptr;
-  altvmt *clientmode_vmt = nullptr;
+  vmt_hook *panel_vmt = nullptr;
+  vmt_hook *client_vmt = nullptr;
+  vmt_hook *clientmode_vmt = nullptr;
 }
