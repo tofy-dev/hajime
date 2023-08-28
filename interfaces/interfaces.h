@@ -10,6 +10,7 @@
 
 namespace interfaces {
   void init();
+  void reset();
 
   extern uint32_t engine_addr;
   extern uint32_t client_addr;

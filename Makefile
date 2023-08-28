@@ -10,11 +10,13 @@ LDLIBS+=-lm
 LDLIBS+=-lstdc++
 LDLIBS+=-ldl
 LDLIBS+=-shared
+LDLIBS+=-static-libstdc++
 
 name := hajime
 dest := ../bin
 source := $(shell find -name "*.cc" | cut -b 3-)
 objects := $(addprefix $(dest)/, $(patsubst %.cc, %.o, $(source)))
+target := hl2_linux
 
 # Default target
 all: $(dest)/$(name).so

@@ -9,9 +9,6 @@
 void glow::glow() {
   using logger::ofs;
 
-  *ofs << "caddr: " << interfaces::client_addr << std::endl;
-  *ofs << "caddr: " << interfaces::client_addr+0x204f340 << std::endl;
-
   // CGlowObjectManager* glowobjectmanager = reinterpret_cast<CGlowObjectManager*> (interfaces::client_addr + 0x204f340);
   // *ofs << "gom ptr: " << glowobjectmanager << std::endl;
 
@@ -30,7 +27,7 @@ void glow::glow() {
   // }
 
   for (int index = 1; index < interfaces::entitylist->get_highest_entity_index(); index++) {
-    *ofs << "loop" << index << std::endl;
+    // *ofs << "loop" << index << std::endl;
     c_base_entity* entity = interfaces::entitylist->get_client_entity(index);
 
     if(!entity)

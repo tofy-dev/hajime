@@ -34,6 +34,15 @@ void interfaces::init() {
   entitylist = (i_entity_list*)((create_interface_t) dlsym(client_so, "CreateInterface"))("VClientEntityList003", nullptr);
   panel = (iv_panel*)((create_interface_t) dlsym(vgui_so, "CreateInterface"))("VGUI_Panel009", nullptr);
   surface = (i_surface*)((create_interface_t) dlsym(matsurface_so, "CreateInterface"))("VGUI_Surface030", nullptr);
+
+  dlclose(engine_so);
+  dlclose(client_so);
+  dlclose(vgui_so);
+  dlclose(matsurface_so);
+}
+
+// Should be fine if none of the interfaces are deleted???
+void interfaces::reset() {
 }
 
 namespace interfaces {
