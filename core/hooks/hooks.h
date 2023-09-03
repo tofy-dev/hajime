@@ -6,5 +6,5 @@ namespace hooks {
 
   extern vmt_hook *panel_vmt;
   extern vmt_hook *client_vmt;
-  extern vmt_hook *clientmode_vmt;
+  extern vmt_hook *cmd_vmt;
 }

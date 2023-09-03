@@ -51,7 +51,7 @@ uintptr_t memory::find_pattern(const char* library, const char* pattern_string, 
 
 	for (size_t i = 0; i < length; i++) {
 		if (compare(reinterpret_cast<uint8_t*>(address + i), pattern, mask)) {
-            *ofs << "pattern found @ " << address+i << std::endl;
+            *ofs << "pattern found @ (rel) " << std::hex << i << " (abs) " << address+i << std::endl;
 			return address + i;
 		}
 	}

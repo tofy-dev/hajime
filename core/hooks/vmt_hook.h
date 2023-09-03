@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <cstring>
 #include <memory>
+#include "utils/logger.h"
 
 class vmt_hook {
 	private:
@@ -18,6 +19,7 @@ class vmt_hook {
 
 			while (static_cast<std::uintptr_t*>(*this->baseclass)[this->total_functions])
 				++this->total_functions;
+            *logger::ofs << "total functions: " << total_functions << std::endl;
 
 			const std::size_t table_size = this->total_functions * sizeof(std::uintptr_t);
 
