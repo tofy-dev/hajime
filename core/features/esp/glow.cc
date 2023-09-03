@@ -3,28 +3,25 @@
 #include "interfaces/interfaces.h"
 #include "source-sdk/i_entity.h"
 #include "utils/netvars/netvars.h"
-#include "utils/memory/FindPattern.h"
+#include "utils/memory/memory.h"
 #include "utils/logger.h"
+#include <cstdint>
 
 void glow::glow() {
   using logger::ofs;
 
-  // CGlowObjectManager* glowobjectmanager = reinterpret_cast<CGlowObjectManager*> (interfaces::client_addr + 0x204f340);
-  // *ofs << "gom ptr: " << glowobjectmanager << std::endl;
+  /*
+  for (int index = 0; index < glowobjectmanager->m_GlowObjectDefinitions.m_Size; index++) {
+    *ofs << "GOM loop " << index << std::endl;
+    GlowObjectDefinition_t& glowobject = glowobjectmanager->m_GlowObjectDefinitions[index];
 
-  // *ofs << "Looping through entities..." << std::endl;
-  // *ofs << "[debug] max index: " << interfaces::entitylist->get_highest_entity_index() << std::endl;
-  // *ofs << "Glowing entities..." << std::endl;
+    if (glowobject.m_nNextFreeSlot != ENTRY_IN_USE)
+        continue;
 
-  // for (int index = 0; index < glowobjectmanager->m_GlowObjectDefinitions.m_Size; index++) {
-  //   *ofs << "gom looping " << index << std::endl;
-  //   GlowObjectDefinition_t& glowobject = glowobjectmanager->m_GlowObjectDefinitions[index];
-
-  //   if (glowobject.m_nNextFreeSlot != ENTRY_IN_USE)
-  //       continue;
-
-  //   glowobject.m_vGlowColor = Vector(1.f, 0.f, 1.f);
-  // }
+    *ofs << "setting glow color..." << std::endl;
+    glowobject.m_vGlowColor = Vector(1.f, 0.f, 1.f);
+  }
+  */
 
   for (int index = 1; index < interfaces::entitylist->get_highest_entity_index(); index++) {
     // *ofs << "loop" << index << std::endl;

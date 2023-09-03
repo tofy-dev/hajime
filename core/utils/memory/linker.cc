@@ -2,7 +2,7 @@
 #include <link.h>
 #include <string.h>
 
-#include "Linker.h"
+#include "linker.h"
 
 struct dlinfo_t {
 	// Full path to shared library on filesystem.
@@ -17,7 +17,7 @@ struct dlinfo_t {
 
 std::vector<dlinfo_t> libraries;
 
-bool Linker::GetLibraryInformation(const char* library, uintptr_t* address, size_t* size) {
+bool linker::get_library_information(const char* library, uintptr_t* address, size_t* size) {
 	if (libraries.size() == 0) {
 		dl_iterate_phdr([] (struct dl_phdr_info* info, size_t, void*) {
 			dlinfo_t library_info = {};

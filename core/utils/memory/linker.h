@@ -3,7 +3,7 @@
 using std::uint8_t;
 using std::size_t;
 
-namespace Linker {
+namespace linker {
 	// Iterate loaded shared libraries and optionally return base address and size.
-	bool GetLibraryInformation(const char*, uintptr_t* = nullptr, size_t* = nullptr);
+	bool get_library_information(const char*, uintptr_t* = nullptr, size_t* = nullptr);
 }

@@ -2,6 +2,7 @@
 #include "vmt_hook.h"
 #include "implements/implementations.h"
 #include "interfaces/interfaces.h"
+#include "features/esp/glow.h"
 #include "utils/logger.h"
 
 #include <cstdint>
