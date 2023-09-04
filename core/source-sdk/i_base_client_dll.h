@@ -21,3 +21,6 @@ public:
     return utils::get_virtual_function<fn>(this, 8)(this);
   }
 };
+
+class i_client_mode_shared {
+};

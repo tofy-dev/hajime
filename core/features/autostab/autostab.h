@@ -1,4 +1,4 @@
 #pragma once
 namespace autostab {
-  void check();
+  bool is_backstab();
 }

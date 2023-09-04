@@ -5,23 +5,20 @@
 #include "utils/netvars/netvars.h"
 #include "utils/memory/memory.h"
 #include "utils/logger.h"
+#include "globals/globals.h"
 #include <cstdint>
 
 void glow::glow() {
   using logger::ofs;
 
-  /*
-  for (int index = 0; index < glowobjectmanager->m_GlowObjectDefinitions.m_Size; index++) {
-    *ofs << "GOM loop " << index << std::endl;
-    GlowObjectDefinition_t& glowobject = glowobjectmanager->m_GlowObjectDefinitions[index];
+  for (int index = 0; index < globals::g_GlowObjectManager->m_GlowObjectDefinitions.m_Size; index++) {
+    GlowObjectDefinition_t& glowobject = globals::g_GlowObjectManager->m_GlowObjectDefinitions[index];
 
     if (glowobject.m_nNextFreeSlot != ENTRY_IN_USE)
         continue;
 
-    *ofs << "setting glow color..." << std::endl;
     glowobject.m_vGlowColor = Vector(1.f, 0.f, 1.f);
   }
-  */
 
   for (int index = 1; index < interfaces::entitylist->get_highest_entity_index(); index++) {
     // *ofs << "loop" << index << std::endl;

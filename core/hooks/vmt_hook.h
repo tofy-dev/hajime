@@ -15,7 +15,11 @@ class vmt_hook {
 		vmt_hook(void) = default;
 
 		vmt_hook(void* baseclass) {
+            *logger::ofs << "baseclass: " << baseclass << std::endl;
+
 			this->baseclass = static_cast<std::uintptr_t**>(baseclass);
+
+            *logger::ofs << "vmt: " << this->baseclass << std::endl;
 
 			while (static_cast<std::uintptr_t*>(*this->baseclass)[this->total_functions])
 				++this->total_functions;

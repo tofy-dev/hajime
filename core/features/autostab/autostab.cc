@@ -5,29 +5,23 @@
 #include "source-sdk/iv_engine_client.h"
 #include "utils/logger.h"
 
-void autostab::check() {
-  *logger::ofs << "Getting localplayer..." << std::endl;
+bool autostab::is_backstab() {
+  // *logger::ofs << "Getting localplayer..." << std::endl;
   c_base_entity* localPlayer = (c_base_entity*) interfaces::entitylist->get_client_entity(interfaces::engine->get_local_player());
-  if (localPlayer == NULL) return;
+  if (localPlayer == NULL) return false;
 
-  *logger::ofs << "Getting weapon..." << std::endl;
+  // *logger::ofs << "Getting weapon..." << std::endl;
   c_base_combat_weapon* weapon = localPlayer->get_weapon();
-  if (weapon == NULL) return;
+  if (weapon == NULL) return false;
 
-  /*
-  *logger::ofs << "If weaponid == 7" << std::endl;
+  // *logger::ofs << "If weaponid == 7" << std::endl;
   if (weapon->get_weapon_id() == 7) {
-    *logger::ofs << "If backstab" << std::endl;
+    // *logger::ofs << "If backstab" << std::endl;
     if (weapon->calc_is_attack_critical_helper_no_crits()) {
-      *logger::ofs << "Attack" << std::endl;
-      weapon->primary_attack();
+      // *logger::ofs << "Attack" << std::endl;
+      return true;
     }
   }
-  */
 
-  *logger::ofs << "w_id" << weapon->get_weapon_id() << std::endl;
-  *logger::ofs << "w_rcrit" << weapon->calc_is_attack_critical_helper() << std::endl;
-  *logger::ofs << "w_crit" << weapon->calc_is_attack_critical_helper() << std::endl;
-  weapon->primary_attack();
-  interfaces::engine->client_cmd("+attack");
+  return false;
 }

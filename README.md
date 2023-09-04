@@ -16,7 +16,6 @@ ejecting // reloading
 call $dlclose($library)
 set $library = $dlopen("/home/bob/Coding/cheats/mystuff/hajime/bin/hajime.so", 1)
 ```
-
 ## Features
 - [x] Glow
 - [x] 3rd person

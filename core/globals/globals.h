@@ -6,5 +6,5 @@
 namespace globals {
   void init();
   extern CGlowObjectManager* g_GlowObjectManager;
-  extern void* g_pClientMode;
+  extern i_client_mode_shared* g_pClientMode;
 }

@@ -1,4 +1,5 @@
 #include "hooks.h"
+#include "hooks/altvmt.h"
 #include "vmt_hook.h"
 #include "implements/implementations.h"
 #include "interfaces/interfaces.h"
@@ -19,7 +20,8 @@ void hooks::init() {
 
   *ofs << "Creating hooks..." << std::endl;
   *ofs << "hook successful: " << (panel_vmt->hook_function((void*)&implementations::hooked_paint_traverse, 42) ? "yes" : "no") << std::endl;
-  // *ofs << "hook successful: " << (cmd_vmt->hook_function((void*)&implementations::hooked_create_move, 22) ? "yes" : "no") << std::endl;
+  // *ofs << "hook successful: " << (cmd_vmt->hook_function(hooks::cmd_vmt->get_original_function(22), 22) ? "yes" : "no") << std::endl;
+  *ofs << "hook successful: " << (cmd_vmt->hook_function((void*)&implementations::hooked_create_move, 22) ? "yes" : "no") << std::endl;
 }
 
 void hooks::reset() {
