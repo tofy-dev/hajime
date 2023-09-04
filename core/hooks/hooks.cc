@@ -15,15 +15,11 @@ void hooks::init() {
   *ofs << "Creating vmts..." << std::endl;
   panel_vmt = new vmt_hook(interfaces::panel);
   client_vmt = new vmt_hook(interfaces::client);
-  *ofs << globals::g_pClientMode << std::endl;
-  *ofs << **reinterpret_cast<void***>((*reinterpret_cast<unsigned int**>(interfaces::client))[10]+1) << std::endl;
-  cmd_vmt = new vmt_hook(**reinterpret_cast<void***>((*reinterpret_cast<unsigned int**>(interfaces::client))[10]+1));
-  // cmd_vmt = new vmt_hook((void*)(*(reinterpret_cast<uintptr_t**>(interfaces::client))[10]+1));
-
+  cmd_vmt = new vmt_hook(globals::g_pClientMode);
 
   *ofs << "Creating hooks..." << std::endl;
-  panel_vmt->hook_function((void*)&implementations::hooked_paint_traverse, 42);
-  cmd_vmt->hook_function((void*)&implementations::hooked_create_move, 22);
+  *ofs << "hook successful: " << (panel_vmt->hook_function((void*)&implementations::hooked_paint_traverse, 42) ? "yes" : "no") << std::endl;
+  // *ofs << "hook successful: " << (cmd_vmt->hook_function((void*)&implementations::hooked_create_move, 22) ? "yes" : "no") << std::endl;
 }
 
 void hooks::reset() {
