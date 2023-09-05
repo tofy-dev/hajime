@@ -1,4 +1,6 @@
 #pragma once
+#include <cstdint>
+
 #define IN_ATTACK		(1 << 0)
 #define IN_JUMP			(1 << 1)
 #define IN_DUCK			(1 << 2)
@@ -27,22 +29,21 @@
 #define	IN_ATTACK3		(1 << 25)
 
 class vector{};
-class c_user_cmd final
+class c_user_cmd
 {
 public:
-	virtual ~c_user_cmd() {}; //Destructor 0
-	int command_number; //4
-	int tick_count; //8
-	vector viewangles; //C
-	float forwardmove; //18
-	float sidemove; //1C
-	float upmove; //20
-	int	buttons; //24
-	unsigned char impulse; //28
-	int weaponselect; //2C
-	int weaponsubtype; //30
-	int random_seed; //34
-	short mousedx; //38
-	short mousedy; //3A
-	bool has_been_predicted; //3C;
+	virtual ~c_user_cmd() { };
+	int		command_number;
+	int		tick_count;
+	char viewangles[12];     
+	float	forwardmove;   
+	float	sidemove;      
+	float	upmove;         
+	int		buttons;		
+	char    impulse;        
+	int		weaponselect;	
+	int		weaponsubtype;
+	int		random_seed;	// For shared random functions
+	short	mousedx;		// mouse accum in x from create move
+	short	mousedy;		// mouse accum in y from create move
 };

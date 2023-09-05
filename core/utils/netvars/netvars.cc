@@ -41,6 +41,7 @@ void netvars::init_offsets() {
   netvars::get_netvar("DT_TFPlayer", "m_bGlowEnabled");
 
   netvars::get_netvar("DT_BaseCombatCharacter", "m_hActiveWeapon");
+  netvars::get_netvar("DT_TFWeaponKnife", "m_bReadyToBackstab");
 }
 
 int netvars::get_netvar(const char* dt, const char* m) {
