@@ -23,13 +23,13 @@ bool autostab::backstab(c_user_cmd* cmd) {
   //*logger::ofs << "If weaponid == 7" << std::endl;
   if (weapon->get_weapon_id() == 7) {
     //*logger::ofs << "If backstab" << std::endl;
-    if (localPlayer+netvars::get_offset("m_bReadyToBackstab")) {
+    if (*(bool*)(weapon+netvars::get_offset("m_bReadyToBackstab"))) {
       *logger::ofs << "stabby" << std::endl;
-      // weapon->primary_attack();
       cmd->buttons |= IN_ATTACK;
       return true;
     }
   }
+  *logger::ofs << "no stabby" << std::endl;
 
   return false;
 }
