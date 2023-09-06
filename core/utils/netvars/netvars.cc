@@ -35,6 +35,7 @@ void netvars::init() {
 void netvars::init_offsets() {
   netvars::get_netvar("DT_BasePlayer", "m_iHealth");
   netvars::get_netvar("DT_BasePlayer", "m_lifeState");
+  netvars::get_netvar("DT_BasePlayer", "m_fFlags");
   netvars::get_netvar("DT_BaseEntity", "m_iTeamNum");
 
   netvars::get_netvar("DT_TFPlayer", "m_nForceTauntCam");

@@ -1,3 +1,4 @@
+#include "features/bhop/bhop.h"
 #include "implementations.h"
 #include "hooks/hooks.h"
 #include "source-sdk/structs/structs.h"
@@ -16,35 +17,9 @@ bool implementations::hooked_create_move(void* thisptr, float flInputSampleTime,
     return result;
   }
 
+  bhop::bhop(cmd);
   autostab::backstab(cmd);
   *ofs << std::bitset<32>(cmd->buttons) << std::endl;
-
-  // if (autostab::is_backstab()) {
-  //   *ofs << "backstab!" << std::endl;
-  //   if(!(cmd->buttons & IN_ATTACK)) cmd->buttons |= IN_ATTACK;
-  // }
-
-  // *ofs << thisptr << std::endl;
-  // *ofs << flInputSampleTime << std::endl;
-  // *ofs << cmd << std::endl;
-
-  // cmd->buttons |= IN_JUMP;
-  // cmd->buttons |= IN_MOVELEFT;
-  // cmd->buttons |= IN_DUCK;
-  // cmd->buttons |= IN_ATTACK;
-
-
-  // *ofs << "checking cmd vals..." << std::endl;
-  // *ofs << cmd->upmove << std::endl;
-  // *ofs << cmd->tick_count << std::endl;
-  // *ofs << cmd->forwardmove << std::endl;
-  // *ofs << cmd->sidemove << std::endl;
-  // *ofs << cmd->upmove << std::endl;
-  // *ofs << std::bitset<32>(cmd->buttons) << std::endl;
-  // *ofs << cmd->weaponselect << std::endl;
-  // *ofs << cmd->weaponsubtype << std::endl;
-  // *ofs << cmd->mousedx << std::endl;
-  // *ofs << cmd->mousedy << std::endl;
 
   return result;
 }
