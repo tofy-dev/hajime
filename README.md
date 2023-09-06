@@ -16,6 +16,11 @@ ejecting // reloading
 call $dlclose($library)
 set $library = $dlopen("/home/bob/Coding/cheats/mystuff/hajime/bin/hajime.so", 1)
 ```
+
+testing steam runtime configurations
+```
++map itemtest +nb_blind 1
+```
 ## Features
 - [x] Glow
 - [x] 3rd person
