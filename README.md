@@ -24,5 +24,6 @@ testing steam runtime configurations
 ## Features
 - [x] Glow
 - [x] 3rd person
-- [ ] Autostab
+- [x] Bhop
+- [x] Autostab (~1 tick delay)
 - [ ] Aimbot
