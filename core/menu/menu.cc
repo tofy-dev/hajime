@@ -2,9 +2,11 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
+#include <SDL2/SDL_keycode.h>
 #include <dlfcn.h>
 #include <fstream>
 #include <cstdint>
+#include <vector>
 
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_sdl2.h"
@@ -39,31 +41,34 @@ void hkSwapWindow(SDL_Window* window) {
 	// Switch to our context.
 	SDL_GL_MakeCurrent(window, user_context);
 
+    std::vector<SDL_Event> unhandled_events{};
+
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
+      if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_EQUALS) {
+        show_window = !show_window;
+      } else if (show_window) {
         ImGui_ImplSDL2_ProcessEvent(&event);
-        switch (event.type) {
-          case SDL_KEYDOWN:
-            *ofs << "key pressed" << std::endl;
-            if (event.key.keysym.sym == SDLK_EQUALS) {
-              *ofs << "equal key pressed" << std::endl;
-              show_window = !show_window;
-              *ofs << "show window: " << show_window << std::endl;
-            }
-        }
+      } else {
+        unhandled_events.push_back(event);
+      }
     }
 
-	// Perform UI rendering.
-    ImGui_ImplOpenGL2_NewFrame();
-	ImGui_ImplSDL2_NewFrame(window);
-    ImGui::NewFrame();
+    for (SDL_Event e : unhandled_events) {
+      SDL_PushEvent(&e);
+    }
 
-    if (show_window)
+    if (show_window) {
+      // Perform UI rendering.
+      ImGui_ImplOpenGL2_NewFrame();
+      ImGui_ImplSDL2_NewFrame(window);
+      ImGui::NewFrame();
+
+      // Display the UI
       ImGui::ShowDemoWindow(&show_window);
-
-	ImGui::Render();
-    ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
-
+	  ImGui::Render();
+      ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
+    }
 
 	// Swap back to the game context.
 	SDL_GL_MakeCurrent(window, original_context);
