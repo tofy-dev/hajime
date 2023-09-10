@@ -16,13 +16,12 @@
 
 using namespace logger;
 
-void hkSwapWindow(SDL_Window* window) {
+void menu::swap_window(SDL_Window* window) {
 	// Get the original 'SDL_GL_SwapWindow' symbol from 'libSDL2-2.0.so.0'.
 	static void (*oSDL_GL_SwapWindow) (SDL_Window*) = reinterpret_cast<void(*)(SDL_Window*)>(menu::swapwindow_original);
 	
 	// Store OpenGL contexts.
 	static SDL_GLContext original_context = SDL_GL_GetCurrentContext();
-	static SDL_GLContext user_context = NULL;
     static bool show_window = false;
 	
 	// Perform first-time initialization.
@@ -30,10 +29,12 @@ void hkSwapWindow(SDL_Window* window) {
 		// Create a new context for our rendering.
 		user_context = SDL_GL_CreateContext(window);
         ImGui::CreateContext();
+
         ImGuiIO& io = ImGui::GetIO(); (void)io;
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
         // io.WantCaptureMouse = true;
+        io.Fonts->AddFontFromFileTTF("/usr/share/fonts/TTF/Koruri-Light.ttf", 16.0f, nullptr, io.Fonts->GetGlyphRangesJapanese());
 
         ImGui_ImplSDL2_InitForOpenGL(window, user_context);
         ImGui_ImplOpenGL2_Init();
@@ -129,12 +130,22 @@ void menu::init() {
 	swapwindow_original = *swapwindow_ptr;
 
 	// Write the address to our replacement function.
-	*swapwindow_ptr = reinterpret_cast<uintptr_t>(&hkSwapWindow);
+	*swapwindow_ptr = reinterpret_cast<uintptr_t>(&swap_window);
 
     *ofs << "finishes initing successfully..." << std::endl;
 }
 
 void menu::destroy() {
+    *ofs << "Destroying menu..." << std::endl;
+
+	SDL_GL_MakeCurrent(window, user_context);
+
+    ImGui_ImplOpenGL2_Shutdown();
+    ImGui_ImplSDL2_Shutdown();
+    ImGui::DestroyContext();
+
+    SDL_GL_DeleteContext(user_context);
+
 	*swapwindow_ptr = swapwindow_original;
 }
 
@@ -142,6 +153,9 @@ void menu::destroy() {
 namespace menu {
   uintptr_t* swapwindow_ptr = 0;
   uintptr_t swapwindow_original = 0;
+
+  SDL_GLContext user_context = NULL;
+  SDL_Window* window = nullptr;
 }
 
 namespace settings {
