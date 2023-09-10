@@ -4,6 +4,7 @@ CXX_FLAGS+=--std=c++20
 CXX_FLAGS+=-fPIC
 CXX_FLAGS+=-m32
 CXX_FLAGS+=-ggdb3
+CXX_FLAGS+=-fno-gnu-unique
 
 LDLIBS+=-shared
 LDLIBS+=-ldl
