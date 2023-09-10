@@ -1,6 +1,7 @@
 #include "interfaces/interfaces.h"
 #include "hooks/hooks.h"
 #include "globals/globals.h"
+#include "menu/menu.h"
 
 #include "utils/timeutil.h"
 #include "utils/netvars/netvars.h"
@@ -27,6 +28,9 @@ static void __attribute__((constructor)) constructor() {
 
   *ofs << "Initing InterfaceMgr..." << std::endl;
   interfaces::init();
+
+  *ofs << "Initing menu..." << std::endl;
+  menu::init();
 
   *ofs << "Initing NetvarMgr..." << std::endl;
   netvars::init();

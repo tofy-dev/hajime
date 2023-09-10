@@ -1,16 +1,14 @@
-INCLUDE+=-I. -Iutils -Isource-sdk -Iinterfaces -Ihooks -Ifeatures
+INCLUDE+=-I. -Iutils -Isource-sdk -Iinterfaces -Ihooks -Ifeatures -I/usr/include/SDL2
 
-CXX_FLAGS+=-O3
-CXX_FLAGS+=-pipe
-CXX_FLAGS+=-m32
-CXX_FLAGS+=-fPIC
 CXX_FLAGS+=--std=c++20
+CXX_FLAGS+=-fPIC
+CXX_FLAGS+=-m32
+CXX_FLAGS+=-ggdb3
 
-LDLIBS+=-lm
-LDLIBS+=-lstdc++
-LDLIBS+=-ldl
 LDLIBS+=-shared
-LDLIBS+=-static-libstdc++
+LDLIBS+=-ldl
+LDLIBS+=-lSDL2
+LDLIBS+=-lGL
 
 name := hajime
 dest := ../bin

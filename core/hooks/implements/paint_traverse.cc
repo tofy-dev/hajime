@@ -25,6 +25,6 @@ void implementations::hooked_paint_traverse(void* thisptr, unsigned int vgui_pan
   if(drawPanel && vgui_panel == drawPanel) {
     glow::glow();
     c_base_entity* localPlayer = (c_base_entity*) interfaces::entitylist->get_client_entity(interfaces::engine->get_local_player());
-    *(int*)((uint32_t)localPlayer+netvars::get_offset("m_nForceTauntCam")) = 1;
+    // *(int*)((uint32_t)localPlayer+netvars::get_offset("m_nForceTauntCam")) = 1;
   }
 }
