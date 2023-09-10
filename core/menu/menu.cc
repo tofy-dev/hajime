@@ -1,6 +1,7 @@
 #include "menu.h"
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_events.h>
 #include <dlfcn.h>
 #include <fstream>
 #include <cstdint>
@@ -19,6 +20,7 @@ void hkSwapWindow(SDL_Window* window) {
 	// Store OpenGL contexts.
 	static SDL_GLContext original_context = SDL_GL_GetCurrentContext();
 	static SDL_GLContext user_context = NULL;
+    static bool show_window = false;
 	
 	// Perform first-time initialization.
 	if (!user_context) {
@@ -28,7 +30,7 @@ void hkSwapWindow(SDL_Window* window) {
         ImGuiIO& io = ImGui::GetIO(); (void)io;
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-        io.WantCaptureMouse = true;
+        // io.WantCaptureMouse = true;
 
         ImGui_ImplSDL2_InitForOpenGL(window, user_context);
         ImGui_ImplOpenGL2_Init();
@@ -40,6 +42,15 @@ void hkSwapWindow(SDL_Window* window) {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         ImGui_ImplSDL2_ProcessEvent(&event);
+        switch (event.type) {
+          case SDL_KEYDOWN:
+            *ofs << "key pressed" << std::endl;
+            if (event.key.keysym.sym == SDLK_EQUALS) {
+              *ofs << "equal key pressed" << std::endl;
+              show_window = !show_window;
+              *ofs << "show window: " << show_window << std::endl;
+            }
+        }
     }
 
 	// Perform UI rendering.
@@ -47,7 +58,8 @@ void hkSwapWindow(SDL_Window* window) {
 	ImGui_ImplSDL2_NewFrame(window);
     ImGui::NewFrame();
 
-	ImGui::ShowDemoWindow();
+    if (show_window)
+      ImGui::ShowDemoWindow(&show_window);
 
 	ImGui::Render();
     ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
