@@ -12,6 +12,7 @@
 #include "imgui/imgui_impl_sdl2.h"
 #include "imgui/imgui_impl_opengl2.h"
 #include "utils/logger.h"
+#include "globals/settings.h"
 
 using namespace logger;
 
@@ -46,6 +47,7 @@ void hkSwapWindow(SDL_Window* window) {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
       if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_EQUALS) {
+        *ofs << "equals key pressed" << std::endl;
         show_window = !show_window;
       } else if (show_window) {
         ImGui_ImplSDL2_ProcessEvent(&event);
@@ -65,7 +67,43 @@ void hkSwapWindow(SDL_Window* window) {
       ImGui::NewFrame();
 
       // Display the UI
-      ImGui::ShowDemoWindow(&show_window);
+      ImGui::Begin("hajime // はじめ", &show_window, ImGuiWindowFlags_MenuBar);
+      if (ImGui::BeginMenuBar())
+      {
+          if (ImGui::BeginMenu("File"))
+          {
+              if (ImGui::MenuItem("Open..", "Ctrl+O")) { /* Do stuff */ }
+              if (ImGui::MenuItem("Save", "Ctrl+S"))   { /* Do stuff */ }
+              if (ImGui::MenuItem("Close", "Ctrl+W"))  { show_window = false; }
+              ImGui::EndMenu();
+          }
+          ImGui::EndMenuBar();
+      }
+
+      // Edit a color stored as 4 floats
+      static ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+      ImGui::ColorEdit3("Color", (float*)&clear_color);
+
+      // Generate samples and plot them
+      float samples[100];
+      for (int n = 0; n < 100; n++)
+          samples[n] = sinf(n * 0.2f + ImGui::GetTime() * 1.5f);
+      ImGui::PlotLines("Samples", samples, 100);
+
+      // Display contents in a scrolling region
+      ImGui::TextColored(ImVec4(1,1,0,1), "Hacks");
+      ImGui::BeginChild("Scrolling");
+
+      ImGui::Checkbox("Aimbot", &settings::aimbot);
+      ImGui::Checkbox("Triggerbot", &settings::triggerbot);
+      ImGui::Checkbox("Auto backstab", &settings::auto_backstab);
+      ImGui::Checkbox("Glow", &settings::glow);
+      ImGui::Checkbox("Sniper scope", &settings::sniper_scope);
+      ImGui::Checkbox("Bunnyhop", &settings::bunnyhop);
+
+      ImGui::EndChild();
+      ImGui::End();
+
 	  ImGui::Render();
       ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
     }
@@ -96,9 +134,24 @@ void menu::init() {
     *ofs << "finishes initing successfully..." << std::endl;
 }
 
-// TODO: add destroy function
+void menu::destroy() {
+	*swapwindow_ptr = swapwindow_original;
+}
+
 
 namespace menu {
   uintptr_t* swapwindow_ptr = 0;
   uintptr_t swapwindow_original = 0;
+}
+
+namespace settings {
+  bool aimbot = false;
+  bool triggerbot = false;
+  bool auto_backstab = false;
+
+  bool glow = false;
+  bool sniper_scope = false;
+  bool third_person = false;
+
+  bool bunnyhop = false;
 }

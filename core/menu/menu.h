@@ -2,6 +2,8 @@
 
 namespace menu {
   void init();
+  void destroy();
+
   // Pointer to 'SDL_GL_SwapWindow' in the jump table.
   extern uintptr_t* swapwindow_ptr;
 

@@ -6,6 +6,7 @@
 #include "utils/logger.h"
 #include "source-sdk/structs/structs.h"
 #include "utils/netvars/netvars.h"
+#include "globals/settings.h"
 
 bool autostab::backstab(c_user_cmd* cmd) {
   //*logger::ofs << "Getting localplayer..." << std::endl;

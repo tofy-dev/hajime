@@ -18,6 +18,7 @@ static void __attribute__((destructor)) destructor() {
   *ofs << "destructor called" << std::endl;
   hooks::reset();
   interfaces::reset();
+  menu::destroy();
 
   delete ofs;
 }
