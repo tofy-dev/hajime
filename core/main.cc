@@ -2,6 +2,7 @@
 #include "hooks/hooks.h"
 #include "globals/globals.h"
 
+#include "menu/menu.h"
 #include "utils/timeutil.h"
 #include "utils/netvars/netvars.h"
 #include "utils/logger.h"
@@ -16,6 +17,7 @@ using logger::ofs;
 static void __attribute__((destructor)) destructor() {
   *ofs << "destructor called" << std::endl;
   hooks::reset();
+  menu::reset();
   interfaces::reset();
 
   delete ofs;
@@ -27,6 +29,9 @@ static void __attribute__((constructor)) constructor() {
 
   *ofs << "Initing InterfaceMgr..." << std::endl;
   interfaces::init();
+
+  *ofs << "Initing Menu..." << std::endl;
+  menu::init();
 
   *ofs << "Initing NetvarMgr..." << std::endl;
   netvars::init();

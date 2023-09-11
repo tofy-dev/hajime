@@ -6,6 +6,7 @@
 #include "globals/globals.h"
 #include "features/autostab/autostab.h"
 #include "interfaces/interfaces.h"
+#include "globals/settings.h"
 
 #include <bitset>
 
@@ -17,8 +18,8 @@ bool implementations::hooked_create_move(void* thisptr, float flInputSampleTime,
     return result;
   }
 
-  bhop::bhop(cmd);
-  autostab::backstab(cmd);
+  if (settings::bunnyhop) bhop::bhop(cmd);
+  if (settings::auto_backstab) autostab::backstab(cmd);
   *ofs << std::bitset<32>(cmd->buttons) << std::endl;
 
   return result;
