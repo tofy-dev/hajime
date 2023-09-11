@@ -20,7 +20,7 @@ bool implementations::hooked_create_move(void* thisptr, float flInputSampleTime,
 
   if (settings::bunnyhop) bhop::bhop(cmd);
   if (settings::auto_backstab) autostab::backstab(cmd);
-  *ofs << std::bitset<32>(cmd->buttons) << std::endl;
+  // *ofs << std::bitset<32>(cmd->buttons) << std::endl;
 
   return result;
 }

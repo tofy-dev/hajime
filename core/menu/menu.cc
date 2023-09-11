@@ -43,23 +43,22 @@ void menu::swap_window(SDL_Window* window) {
 	// Switch to our context.
 	SDL_GL_MakeCurrent(window, user_context);
 
-    std::vector<SDL_Event> unhandled_events{};
 
-    SDL_Event event;
-    while (SDL_PollEvent(&event)) {
-      if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_EQUALS) {
-        *ofs << "equals key pressed" << std::endl;
-        show_window = !show_window;
-      } else if (show_window) {
-        ImGui_ImplSDL2_ProcessEvent(&event);
-      } else {
-        unhandled_events.push_back(event);
-      }
-    }
+	// Enable or disable the ImGui cursor depending on the GUI visibility.
+	ImGui::GetIO().MouseDrawCursor = show_window;
+	ImGui::GetIO().WantCaptureMouse = show_window;
+	ImGui::GetIO().WantCaptureKeyboard = show_window;
 
-    for (SDL_Event e : unhandled_events) {
-      SDL_PushEvent(&e);
-    }
+	// Handle incoming input while the menu is active.
+	if (show_window) {
+		SDL_Event event = {};
+
+		while (SDL_PollEvent(&event)) {
+			if (event.key.keysym.sym == SDLK_AUDIOPLAY && event.type == SDL_KEYDOWN)
+				show_window = !show_window;
+            ImGui_ImplSDL2_ProcessEvent(&event);
+		}
+	} 
 
     if (show_window) {
       // Perform UI rendering.
